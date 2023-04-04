@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fluent.Structures.Drawing", "src\Fluent.Structures.Drawing\Fluent.Structures.Drawing.csproj", "{17BE3C25-D594-40D7-A4DA-03F8AB1D1ECA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fluent.Structures.Model", "src\Fluent.Structures.Model\Fluent.Structures.Model.csproj", "{6E01CE07-0E03-438F-BE78-67C9550357E9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{D59DC578-73F1-422D-9799-03621D31D892}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fluent.Structures.Model.Tests", "tests\Fluent.Structures.Model.Tests\Fluent.Structures.Model.Tests.csproj", "{856F829D-2B17-4558-9426-3DD32AB27286}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{17BE3C25-D594-40D7-A4DA-03F8AB1D1ECA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17BE3C25-D594-40D7-A4DA-03F8AB1D1ECA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17BE3C25-D594-40D7-A4DA-03F8AB1D1ECA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17BE3C25-D594-40D7-A4DA-03F8AB1D1ECA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E01CE07-0E03-438F-BE78-67C9550357E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E01CE07-0E03-438F-BE78-67C9550357E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E01CE07-0E03-438F-BE78-67C9550357E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E01CE07-0E03-438F-BE78-67C9550357E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{856F829D-2B17-4558-9426-3DD32AB27286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{856F829D-2B17-4558-9426-3DD32AB27286}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{856F829D-2B17-4558-9426-3DD32AB27286}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{856F829D-2B17-4558-9426-3DD32AB27286}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{856F829D-2B17-4558-9426-3DD32AB27286} = {D59DC578-73F1-422D-9799-03621D31D892}
+	EndGlobalSection
+EndGlobal
