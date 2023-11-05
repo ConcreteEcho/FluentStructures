@@ -6,22 +6,24 @@
         <Nullable>enable</Nullable>
         <LangVersion>latestmajor</LangVersion>
         <PackageId>Fluent.Structures.Model</PackageId>
-        <Version>0.1.0</Version>
+        <Version>0.1.1</Version>
         <Authors>Victor Molostov</Authors>
         <Product>Fluent.Structures.Model</Product>
         <Title>Fluent.Structures.Model</Title>
         <PackageTags>Tekla</PackageTags>
-        <Description>
-            This library simplifies interaction with the Tekla API.
-        </Description>
+        <Description>This library simplifies interaction with the Tekla API.</Description>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageProjectUrl>https://github.com/ConcreteEcho/FluentStructures</PackageProjectUrl>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
     </PropertyGroup>
 
     <ItemGroup>
         <None Include="README.md">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+        <None Include="..\..\LICENSE">
             <Pack>True</Pack>
             <PackagePath>\</PackagePath>
         </None>

@@ -2,21 +2,21 @@
 
 public sealed class Beam
 {
-    private readonly TSM.Beam _tsmBeam;
-
     private Beam(TSM.Beam.BeamTypeEnum beamTypeEnum = TSM.Beam.BeamTypeEnum.BEAM)
-        => _tsmBeam = new TSM.Beam(beamTypeEnum);
+        => TeklaBeam = new TSM.Beam(beamTypeEnum);
 
-    public TSM.Assembly GetAssembly()
-        => _tsmBeam.GetAssembly();
+    public TSM.Assembly TeklaAssembly()
+        => TeklaBeam.GetAssembly();
 
-    public TSM.Beam GetTSMBeam => _tsmBeam;
+    public TSM.Beam TeklaBeam { get; }
 
-    public void Insert()
-        => _tsmBeam.Insert();
+    public bool Insert()
+        => TeklaBeam.Insert();
 
     #region Builder
-    public class BuildBeam : IEmptyBeam, IBeamWithStartPoint, IBeamWithStartAndEndPoints, IBeamWithProfile, ICompletedBeam
+
+    public class BuildBeam : IEmptyBeam, IBeamWithStartPoint, IBeamWithStartAndEndPoints,
+                             IBeamWithProfile, ICompletedBeam
     {
         private readonly Beam _beam = new();
 
@@ -32,7 +32,7 @@ public sealed class Beam
         {
             var defBeam = new Beam
             {
-                StartPoint = new TSG.Point(0, 0),
+                StartPoint = new TSG.Point(0,  0),
                 EndPoint = new TSG.Point(6000, 0),
                 Profile = "D500",
                 Material = "C245",
@@ -107,7 +107,8 @@ public sealed class Beam
             return this;
         }
 
-        public ICompletedBeam RotationPosition(TSM.Position.RotationEnum rotationEnum, double rotationOffset)
+        public ICompletedBeam RotationPosition(TSM.Position.RotationEnum rotationEnum,
+            double rotationOffset)
         {
             _beam.RotationPosition = rotationEnum;
             _beam.RotationOffset = rotationOffset;
@@ -123,103 +124,109 @@ public sealed class Beam
             return this;
         }
     }
+
     #endregion
 
+    public static implicit operator TSM.Beam(Beam beam)
+        => beam.TeklaBeam;
+
     #region Properties
+
     public TSG.Point? StartPoint
     {
-        get => _tsmBeam.StartPoint;
-        private set => _tsmBeam.StartPoint = value;
+        get => TeklaBeam.StartPoint;
+        private set => TeklaBeam.StartPoint = value;
     }
 
     public TSG.Point? EndPoint
     {
-        get => _tsmBeam.EndPoint;
-        private set => _tsmBeam.EndPoint = value;
+        get => TeklaBeam.EndPoint;
+        private set => TeklaBeam.EndPoint = value;
     }
 
     public string? Profile
     {
-        get => _tsmBeam.Profile.ProfileString;
-        private set => _tsmBeam.Profile.ProfileString = value;
+        get => TeklaBeam.Profile.ProfileString;
+        private set => TeklaBeam.Profile.ProfileString = value;
     }
 
     public string? Material
     {
-        get => _tsmBeam.Material?.MaterialString;
-        private set => _tsmBeam.Material.MaterialString = value;
+        get => TeklaBeam.Material?.MaterialString;
+        private set => TeklaBeam.Material.MaterialString = value;
     }
 
     public string? Name
     {
-        get => _tsmBeam.Name;
-        private set => _tsmBeam.Name = value;
+        get => TeklaBeam.Name;
+        private set => TeklaBeam.Name = value;
     }
 
     public string? Class
     {
-        get => _tsmBeam.Class;
-        private set => _tsmBeam.Class = value;
+        get => TeklaBeam.Class;
+        private set => TeklaBeam.Class = value;
     }
 
     public string? AssemblyPrefix
     {
-        get => _tsmBeam.AssemblyNumber.Prefix;
-        private set => _tsmBeam.AssemblyNumber.Prefix = value;
+        get => TeklaBeam.AssemblyNumber.Prefix;
+        private set => TeklaBeam.AssemblyNumber.Prefix = value;
     }
 
     public int AssemblyStartNumber
     {
-        get => _tsmBeam.AssemblyNumber!.StartNumber;
-        private set => _tsmBeam.AssemblyNumber!.StartNumber = value;
+        get => TeklaBeam.AssemblyNumber!.StartNumber;
+        private set => TeklaBeam.AssemblyNumber!.StartNumber = value;
     }
 
     public string? PartPrefix
     {
-        get => _tsmBeam.PartNumber.Prefix;
-        private set => _tsmBeam.PartNumber.Prefix = value;
+        get => TeklaBeam.PartNumber.Prefix;
+        private set => TeklaBeam.PartNumber.Prefix = value;
     }
 
     public int PartStartNumber
     {
-        get => _tsmBeam.PartNumber!.StartNumber;
-        private set => _tsmBeam.PartNumber!.StartNumber = value;
+        get => TeklaBeam.PartNumber!.StartNumber;
+        private set => TeklaBeam.PartNumber!.StartNumber = value;
     }
 
     public TSM.Position.DepthEnum DepthPosition
     {
-        get => _tsmBeam.Position.Depth;
-        private set => _tsmBeam.Position.Depth = value;
+        get => TeklaBeam.Position.Depth;
+        private set => TeklaBeam.Position.Depth = value;
     }
 
     public double DepthOffest
     {
-        get => _tsmBeam.Position!.DepthOffset;
-        private set => _tsmBeam.Position!.DepthOffset = value;
+        get => TeklaBeam.Position!.DepthOffset;
+        private set => TeklaBeam.Position!.DepthOffset = value;
     }
 
     public TSM.Position.PlaneEnum PlanePosition
     {
-        get => _tsmBeam.Position.Plane;
-        private set => _tsmBeam.Position.Plane = value;
+        get => TeklaBeam.Position.Plane;
+        private set => TeklaBeam.Position.Plane = value;
     }
 
     public double PlaneOffset
     {
-        get => _tsmBeam.Position.PlaneOffset;
-        private set => _tsmBeam.Position.PlaneOffset = value;
+        get => TeklaBeam.Position.PlaneOffset;
+        private set => TeklaBeam.Position.PlaneOffset = value;
     }
 
     public TSM.Position.RotationEnum RotationPosition
     {
-        get => _tsmBeam.Position.Rotation;
-        private set => _tsmBeam.Position.Rotation = value;
+        get => TeklaBeam.Position.Rotation;
+        private set => TeklaBeam.Position.Rotation = value;
     }
 
     public double RotationOffset
     {
-        get => _tsmBeam.Position.RotationOffset;
-        private set => _tsmBeam.Position.RotationOffset = value;
+        get => TeklaBeam.Position.RotationOffset;
+        private set => TeklaBeam.Position.RotationOffset = value;
     }
+
     #endregion
 }
