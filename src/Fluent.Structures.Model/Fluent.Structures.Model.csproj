@@ -4,16 +4,33 @@
         <TargetFramework>net48</TargetFramework>
         <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <LangVersion>11</LangVersion>
+        <LangVersion>latestmajor</LangVersion>
+        <PackageId>Fluent.Structures.Model</PackageId>
+        <Version>0.1.0</Version>
+        <Authors>Victor Molostov</Authors>
+        <Product>Fluent.Structures.Model</Product>
+        <Title>Fluent.Structures.Model</Title>
+        <PackageTags>Tekla</PackageTags>
+        <Description>
+            This library simplifies interaction with the Tekla API.
+        </Description>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageProjectUrl>https://github.com/ConcreteEcho/FluentStructures</PackageProjectUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageLicenseUrl>https://github.com/ConcreteEcho/FluentStructures/blob/main/LICENSE</PackageLicenseUrl>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="PolySharp" Version="1.12.1">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
-        <PackageReference Include="Tekla.Structures" Version="2021.0.0" />
-        <PackageReference Include="Tekla.Structures.Model" Version="2021.0.0" />
+        <None Include="README.md">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Tekla.Structures" Version="2022.0.10715"/>
+        <PackageReference Include="Tekla.Structures.Model" Version="2022.0.10715"/>
     </ItemGroup>
 
 </Project>
