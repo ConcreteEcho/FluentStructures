@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace Fluent.Structures.Model;
+﻿namespace Fluent.Structures.Model;
 
 public sealed class Plate
 {
