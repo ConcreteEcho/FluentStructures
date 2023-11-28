@@ -1,4 +1,6 @@
+using System;
 using System.Linq;
+using Tekla.Structures.Forming;
 
 namespace Fluent.Structures.Model;
 
@@ -16,6 +18,7 @@ public sealed class RebarGroup
     /// <summary>
     /// Gets or sets the Tekla Structures Rebar Group instance.
     /// </summary>
+    // ReSharper disable once MemberCanBePrivate.Global
     public TSM.RebarGroup TeklaRebarGroup { get; }
 
     /// <summary>
@@ -54,12 +57,6 @@ public sealed class RebarGroup
         private BuildRebarGroup() {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BuildRebarGroup"/> class with an existing RebarGroup instance.
-        /// </summary>
-        /// <param name="rebarGroup">The existing RebarGroup instance.</param>
-        private BuildRebarGroup(RebarGroup rebarGroup) {}
-
-        /// <summary>
         /// Entry point to start configuring the Rebar Group class
         /// </summary>
         /// <returns>An interface for starting the construction process.</returns>
@@ -76,22 +73,37 @@ public sealed class RebarGroup
         /// <inheritdoc />
         public IRebarGroupWithPolygons Polygons(ArrayList polygons)
         {
+            var list = new List<Polygon>();
+
+            foreach (var polygon in polygons)
+                if (polygon is TSM.Polygon p)
+                    list.Add(p);
+                else
+                    throw new ArgumentException(
+                        $"Array list contains {polygon.GetType()
+                        } which is not Tekla Structures Polygon"
+                    );
+
+            return Polygons(list);
+        }
+
+        public IRebarGroupWithPolygons Polygons(params Polygon[] polygons)
+            => Polygons(polygons.ToList());
+
+        public IRebarGroupWithPolygons Polygons(List<Polygon> polygons)
+        {
             _rebarGroup.Polygons = polygons;
             return this;
         }
 
         /// <inheritdoc />
-        public IRebarGroupWithPolygons Polygons(params TSM.Polygon[] polygons)
-        {
-            _rebarGroup.Polygons = new ArrayList(polygons);
-            return this;
-        }
-
-        /// <inheritdoc />
         public IRebarGroupWithPolygons Polygons(params TSG.Point[] points)
+            => Polygons(points.ToList());
+
+        public IRebarGroupWithPolygons Polygons(List<TSG.Point> points)
         {
             var polygon = Polygon.BuildPolygon.With().Points(points).Build();
-            _rebarGroup.Polygons = new ArrayList { polygon.TeklaPolygon };
+            _rebarGroup.Polygons = new List<Polygon> { polygon, };
             return this;
         }
 
@@ -161,20 +173,17 @@ public sealed class RebarGroup
 
         /// <inheritdoc />
         public IRebarGroupWithSpacings Spacings(ArrayList spacings)
+            => Spacings(spacings.Cast<double>().ToList());
+
+        public IRebarGroupWithSpacings Spacings(params double[] spacings)
+            => Spacings(spacings.ToList());
+
+        public IRebarGroupWithSpacings Spacings(List<double> spacings)
         {
             _rebarGroup.Spacings = spacings;
             return this;
         }
 
-        /// <inheritdoc />
-        public IRebarGroupWithSpacings Spacings(params double[] spacings)
-            => Spacings(new ArrayList(spacings));
-
-        /// <inheritdoc />
-        public IRebarGroupWithSpacings Spacings(List<double> spacings)
-            => Spacings(new ArrayList(spacings));
-
-        /// <inheritdoc />
         public IRebarGroupWithStartHook StartHook(TSM.RebarHookData startHook)
         {
             _rebarGroup.StartHook = startHook;
@@ -183,7 +192,7 @@ public sealed class RebarGroup
 
         /// <inheritdoc />
         public IRebarGroupWithStartHook StartHook(TSM.RebarHookData.RebarHookShapeEnum shapeEnum)
-            => StartHook(new TSM.RebarHookData { Shape = shapeEnum });
+            => StartHook(new TSM.RebarHookData { Shape = shapeEnum, });
 
         /// <inheritdoc />
         public ICompletedRebarGroup StartAndEndHooks(TSM.RebarHookData startHook,
@@ -248,8 +257,11 @@ public sealed class RebarGroup
 
         /// <inheritdoc />
         public ICompletedRebarGroup NumberingSeries(string prefix, int startNumber)
+            => NumberingSeries(new TSM.NumberingSeries(prefix, startNumber));
+
+        public ICompletedRebarGroup NumberingSeries(TSM.NumberingSeries numberingSeries)
         {
-            _rebarGroup.NumberingSeries = new TSM.NumberingSeries(prefix, startNumber);
+            _rebarGroup.NumberingSeries = numberingSeries;
             return this;
         }
 
@@ -264,6 +276,57 @@ public sealed class RebarGroup
         public ICompletedRebarGroup EndPointOffsetValue(double endPointOffsetValue)
         {
             _rebarGroup.EndPointOffsetValue = endPointOffsetValue;
+            return this;
+        }
+
+        public ICompletedRebarGroup StartPointOffsetType(
+            TSM.Reinforcement.RebarOffsetTypeEnum startPointOffsetType)
+        {
+            _rebarGroup.StartPointOffsetType = startPointOffsetType;
+            return this;
+        }
+
+        public ICompletedRebarGroup EndPointOffsetType(
+            TSM.Reinforcement.RebarOffsetTypeEnum endPointOffsetType)
+        {
+            _rebarGroup.EndPointOffsetType = endPointOffsetType;
+            return this;
+        }
+
+        public ICompletedRebarGroup OnPlaneOffsets(ArrayList onPlaneOffsets)
+            => OnPlaneOffsets(onPlaneOffsets.Cast<double>().ToList());
+
+        public ICompletedRebarGroup OnPlaneOffsets(List<double> onPlaneOffsets)
+        {
+            _rebarGroup.OnPlaneOffsets = onPlaneOffsets;
+            return this;
+        }
+
+        public ICompletedRebarGroup OnPlaneOffsets(params double[] onPlaneOffsets)
+            => OnPlaneOffsets(onPlaneOffsets.ToList());
+
+        public ICompletedRebarGroup ExcludeType(TSM.BaseRebarGroup.ExcludeTypeEnum excludeType)
+        {
+            _rebarGroup.ExcludeType = excludeType;
+            return this;
+        }
+
+        public ICompletedRebarGroup StirrupType(
+            TSM.RebarGroup.RebarGroupStirrupTypeEnum stirrupType)
+        {
+            _rebarGroup.StirrupType = stirrupType;
+            return this;
+        }
+
+        public ICompletedRebarGroup Identifier(TS.Identifier identifier)
+        {
+            _rebarGroup.Identifier = identifier;
+            return this;
+        }
+
+        public ICompletedRebarGroup InputPointDeformingState(DeformingType deformingType)
+        {
+            _rebarGroup.InputPointDeformingState = deformingType;
             return this;
         }
 
@@ -358,10 +421,10 @@ public sealed class RebarGroup
     /// <summary>
     /// Gets or sets the spacings of the Rebar Group.
     /// </summary>
-    public ArrayList Spacings
+    public List<double> Spacings
     {
-        get => TeklaRebarGroup.Spacings;
-        private set => TeklaRebarGroup.Spacings = value;
+        get => new(TeklaRebarGroup.Spacings.Cast<double>());
+        private set => TeklaRebarGroup.Spacings = new ArrayList(value);
     }
 
     /// <summary>
@@ -421,10 +484,10 @@ public sealed class RebarGroup
     /// <summary>
     /// Gets or sets the polygons of the Rebar Group.
     /// </summary>
-    public ArrayList Polygons
+    public List<Polygon> Polygons
     {
-        get => TeklaRebarGroup.Polygons;
-        private set => TeklaRebarGroup.Polygons = value;
+        get => new(TeklaRebarGroup.Polygons.Cast<Polygon>());
+        private set => TeklaRebarGroup.Polygons = new ArrayList(value);
     }
 
     /// <summary>
@@ -434,6 +497,69 @@ public sealed class RebarGroup
     {
         get => TeklaRebarGroup.Father;
         private set => TeklaRebarGroup.Father = value;
+    }
+
+    /// <summary>
+    /// Gets or sets the offset type at the start point of the Rebar Group.
+    /// </summary>
+    public TSM.Reinforcement.RebarOffsetTypeEnum StartPointOffsetType
+    {
+        get => TeklaRebarGroup.StartPointOffsetType;
+        private set => TeklaRebarGroup.StartPointOffsetType = value;
+    }
+
+    /// <summary>
+    /// Gets or sets the offset type at the end point of the Rebar Group.
+    /// </summary>
+    public TSM.Reinforcement.RebarOffsetTypeEnum EndPointOffsetType
+    {
+        get => TeklaRebarGroup.EndPointOffsetType;
+        private set => TeklaRebarGroup.EndPointOffsetType = value;
+    }
+
+    /// <summary>
+    /// Gets or sets on-plane offsets for the Rebar Group.
+    /// </summary>
+    public List<double> OnPlaneOffsets
+    {
+        get => new(TeklaRebarGroup.OnPlaneOffsets.Cast<double>());
+        private set => TeklaRebarGroup.OnPlaneOffsets = new ArrayList(value);
+    }
+
+    /// <summary>
+    /// Gets or sets the exclude type for the Rebar Group.
+    /// </summary>
+    public TSM.BaseRebarGroup.ExcludeTypeEnum ExcludeType
+    {
+        get => TeklaRebarGroup.ExcludeType;
+        private set => TeklaRebarGroup.ExcludeType = value;
+    }
+
+    /// <summary>
+    /// Gets or sets the stirrup type for the Rebar Group.
+    /// </summary>
+    public TSM.RebarGroup.RebarGroupStirrupTypeEnum StirrupType
+    {
+        get => TeklaRebarGroup.StirrupType;
+        private set => TeklaRebarGroup.StirrupType = value;
+    }
+
+    /// <summary>
+    /// Gets or sets the identifier for the Rebar Group.
+    /// </summary>
+    public TS.Identifier Identifier
+    {
+        get => TeklaRebarGroup.Identifier;
+        private set => TeklaRebarGroup.Identifier = value;
+    }
+
+    /// <summary>
+    /// Gets or sets the input deforming state for the Rebar Group.
+    /// </summary>
+    public DeformingType InputPointDeformingState
+    {
+        get => TeklaRebarGroup.InputPointDeformingState;
+        private set => TeklaRebarGroup.InputPointDeformingState = value;
     }
 
     #endregion

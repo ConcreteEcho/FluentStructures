@@ -6,17 +6,20 @@
         <Nullable>enable</Nullable>
         <LangVersion>latestmajor</LangVersion>
         <PackageId>Fluent.Structures.Model</PackageId>
-        <Version>0.2.2</Version>
-        <Authors>ConcreteEcho</Authors>
+        <Version>0.2.3</Version>
+        <Authors>Victor Molostov</Authors>
         <Product>Fluent.Structures.Model</Product>
         <Title>Fluent.Structures.Model</Title>
         <PackageTags>Tekla</PackageTags>
         <Description>Interact effortlessly with the Tekla API using the Fluent Interface.</Description>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <Version>0.2.3</Version>
+        <Authors>Victor Molostov</Authors>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageProjectUrl>https://github.com/ConcreteEcho/FluentStructures</PackageProjectUrl>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <DebugType>embedded</DebugType>
     </PropertyGroup>
 
     <ItemGroup>
