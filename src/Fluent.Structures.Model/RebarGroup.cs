@@ -66,24 +66,28 @@ public sealed class RebarGroup
         public static IEmptyRebarGroup With()
             => new BuildRebarGroup();
 
+        /// <inheritdoc />
         public IRebarGroupWithFather Father(TSM.ModelObject father)
         {
             _rebarGroup.Father = father;
             return this;
         }
 
+        /// <inheritdoc />
         public IRebarGroupWithPolygons Polygons(ArrayList polygons)
         {
             _rebarGroup.Polygons = polygons;
             return this;
         }
 
+        /// <inheritdoc />
         public IRebarGroupWithPolygons Polygons(params TSM.Polygon[] polygons)
         {
             _rebarGroup.Polygons = new ArrayList(polygons);
             return this;
         }
 
+        /// <inheritdoc />
         public IRebarGroupWithPolygons Polygons(params TSG.Point[] points)
         {
             var polygon = Polygon.BuildPolygon.With().Points(points).Build();
@@ -91,12 +95,14 @@ public sealed class RebarGroup
             return this;
         }
 
+        /// <inheritdoc />
         public IRebarGroupWithStartPoint StartPoint(TSG.Point start)
         {
             _rebarGroup.StartPoint = start;
             return this;
         }
 
+        /// <inheritdoc />
         public IRebarGroupWithStartAndEndPoints StartAndEndPoints(TSG.Point start, TSG.Point end)
         {
             _rebarGroup.StartPoint = start;
@@ -104,69 +110,82 @@ public sealed class RebarGroup
             return this;
         }
 
+        /// <inheritdoc />
         public IRebarGroupWithStartAndEndPoints EndPoint(TSG.Point end)
         {
             _rebarGroup.EndPoint = end;
             return this;
         }
 
+        /// <inheritdoc />
         public IRebarGroupWithGrade Grade(string grade)
         {
             _rebarGroup.Grade = grade;
             return this;
         }
 
+        /// <inheritdoc />
         public IRebarGroupWithSize Size(string size)
         {
             _rebarGroup.Size = size;
             return this;
         }
 
+        /// <inheritdoc />
         public IRebarGroupWithRadiusValues RadiusValues(ArrayList radiusValues)
         {
             _rebarGroup.RadiusValues = new List<double>(radiusValues.Cast<double>());
             return this;
         }
 
+        /// <inheritdoc />
         public IRebarGroupWithRadiusValues RadiusValues(params double[] radiusValues)
         {
             _rebarGroup.RadiusValues = radiusValues.ToList();
             return this;
         }
 
+        /// <inheritdoc />
         public IRebarGroupWithRadiusValues RadiusValues(List<double> radiusValues)
         {
             _rebarGroup.RadiusValues = radiusValues;
             return this;
         }
 
+        /// <inheritdoc />
         public IRebarGroupWithClass Class(int @class)
         {
             _rebarGroup.Class = @class;
             return this;
         }
 
+        /// <inheritdoc />
         public IRebarGroupWithSpacings Spacings(ArrayList spacings)
         {
             _rebarGroup.Spacings = spacings;
             return this;
         }
 
+        /// <inheritdoc />
         public IRebarGroupWithSpacings Spacings(params double[] spacings)
             => Spacings(new ArrayList(spacings));
 
+        /// <inheritdoc />
         public IRebarGroupWithSpacings Spacings(List<double> spacings)
             => Spacings(new ArrayList(spacings));
 
+        /// <inheritdoc />
         public IRebarGroupWithStartHook StartHook(TSM.RebarHookData startHook)
         {
             _rebarGroup.StartHook = startHook;
             return this;
         }
 
+        /// <inheritdoc />
         public IRebarGroupWithStartHook StartHook(TSM.RebarHookData.RebarHookShapeEnum shapeEnum)
             => StartHook(new TSM.RebarHookData { Shape = shapeEnum });
 
+        /// <inheritdoc />
         public ICompletedRebarGroup StartAndEndHooks(TSM.RebarHookData startHook,
             TSM.RebarHookData endHook)
         {
@@ -175,6 +194,7 @@ public sealed class RebarGroup
             return this;
         }
 
+        /// <inheritdoc />
         public ICompletedRebarGroup StartAndEndHooks(
             TSM.RebarHookData.RebarHookShapeEnum startShapeEnum,
             TSM.RebarHookData.RebarHookShapeEnum endShapeEnum)
@@ -186,21 +206,25 @@ public sealed class RebarGroup
             return this;
         }
 
+        /// <inheritdoc />
         public ICompletedRebarGroup EndHook(TSM.RebarHookData endHook)
         {
             _rebarGroup.EndHook = endHook;
             return this;
         }
 
+        /// <inheritdoc />
         public ICompletedRebarGroup EndHook(TSM.RebarHookData.RebarHookShapeEnum endShapeEnum)
             => EndHook(new TSM.RebarHookData { Shape = endShapeEnum });
 
+        /// <inheritdoc />
         public ICompletedRebarGroup Name(string name)
         {
             _rebarGroup.Name = name;
             return this;
         }
 
+        /// <inheritdoc />
         public ICompletedRebarGroup SpacingType(
             TSM.BaseRebarGroup.RebarGroupSpacingTypeEnum spacingType)
         {
@@ -208,36 +232,42 @@ public sealed class RebarGroup
             return this;
         }
 
+        /// <inheritdoc />
         public ICompletedRebarGroup StartFromPlaneOffset(double startFromPlaneOffset)
         {
             _rebarGroup.StartFromPlaneOffset = startFromPlaneOffset;
             return this;
         }
 
+        /// <inheritdoc />
         public ICompletedRebarGroup EndFromPlaneOffset(double endFromPlaneOffset)
         {
             _rebarGroup.EndFromPlaneOffset = endFromPlaneOffset;
             return this;
         }
 
+        /// <inheritdoc />
         public ICompletedRebarGroup NumberingSeries(string prefix, int startNumber)
         {
             _rebarGroup.NumberingSeries = new TSM.NumberingSeries(prefix, startNumber);
             return this;
         }
 
+        /// <inheritdoc />
         public ICompletedRebarGroup StartPointOffsetValue(double startPointOffsetValue)
         {
             _rebarGroup.StartPointOffsetValue = startPointOffsetValue;
             return this;
         }
 
+        /// <inheritdoc />
         public ICompletedRebarGroup EndPointOffsetValue(double endPointOffsetValue)
         {
             _rebarGroup.EndPointOffsetValue = endPointOffsetValue;
             return this;
         }
 
+        /// <inheritdoc />
         public RebarGroup Build()
             => _rebarGroup;
     }

@@ -79,6 +79,7 @@ public sealed class Beam
             return new BuildBeam(defBeam);
         }
 
+        /// <inheritdoc />
         public IBeamWithStartAndEndPoints StartAndEndPoint(TSG.Point startPoint, TSG.Point endPoint)
         {
             _beam.StartPoint = startPoint;
@@ -86,36 +87,42 @@ public sealed class Beam
             return this;
         }
 
+        /// <inheritdoc />
         public IBeamWithStartPoint StartPoint(TSG.Point startPoint)
         {
             _beam.StartPoint = startPoint;
             return this;
         }
 
+        /// <inheritdoc />
         public IBeamWithProfile Profile(string profile)
         {
             _beam.Profile = profile;
             return this;
         }
 
+        /// <inheritdoc />
         public ICompletedBeam Material(string material)
         {
             _beam.Material = material;
             return this;
         }
 
+        /// <inheritdoc />
         public ICompletedBeam Name(string name)
         {
             _beam.Name = name;
             return this;
         }
 
+        /// <inheritdoc />
         public ICompletedBeam Class(string @class)
         {
             _beam.Class = @class;
             return this;
         }
 
+        /// <inheritdoc />
         public ICompletedBeam AssemblyNumbering(string assemblyPrefix, int assemblyStartNumber)
         {
             _beam.AssemblyPrefix = assemblyPrefix;
@@ -123,6 +130,7 @@ public sealed class Beam
             return this;
         }
 
+        /// <inheritdoc />
         public ICompletedBeam PartNumbering(string partPrefix, int partStartNumber)
         {
             _beam.PartPrefix = partPrefix;
@@ -130,6 +138,7 @@ public sealed class Beam
             return this;
         }
 
+        /// <inheritdoc />
         public ICompletedBeam PlanePosition(TSM.Position.PlaneEnum planeEnum, double planeOffset)
         {
             _beam.PlanePosition = planeEnum;
@@ -137,6 +146,7 @@ public sealed class Beam
             return this;
         }
 
+        /// <inheritdoc />
         public ICompletedBeam DepthPosition(TSM.Position.DepthEnum depthEnum, double depthOffset)
         {
             _beam.DepthPosition = depthEnum;
@@ -144,6 +154,7 @@ public sealed class Beam
             return this;
         }
 
+        /// <inheritdoc />
         public ICompletedBeam RotationPosition(TSM.Position.RotationEnum rotationEnum,
             double rotationOffset)
         {
@@ -152,15 +163,18 @@ public sealed class Beam
             return this;
         }
 
+        /// <inheritdoc />
         public ICompletedBeam CastUnitType(TSM.Part.CastUnitTypeEnum castUnitTypeEnum)
         {
             _beam.CastUnitTypeEnum = castUnitTypeEnum;
             return this;
         }
 
+        /// <inheritdoc />
         public Beam Build()
             => _beam;
 
+        /// <inheritdoc />
         public IBeamWithStartAndEndPoints EndPoint(TSG.Point endPoint)
         {
             _beam.EndPoint = endPoint;
