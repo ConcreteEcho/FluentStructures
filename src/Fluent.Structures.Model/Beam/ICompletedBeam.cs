@@ -1,66 +1,6 @@
 namespace Fluent.Structures.Model;
 
 /// <summary>
-/// Represents an interface for starting the construction of a Beam with the builder pattern.
-/// </summary>
-public interface IEmptyBeam
-{
-    /// <summary>
-    /// Specifies the start and end points of the beam.
-    /// </summary>
-    /// <param name="startPoint">The starting point of the beam.</param>
-    /// <param name="endPoint">The ending point of the beam.</param>
-    /// <returns>An interface for further configuration.</returns>
-    public IBeamWithStartAndEndPoints StartAndEndPoint(TSG.Point startPoint, TSG.Point endPoint);
-
-    /// <summary>
-    /// Specifies the starting point of the beam.
-    /// </summary>
-    /// <param name="startPoint">The starting point of the beam.</param>
-    /// <returns>An interface for further configuration.</returns>
-    public IBeamWithStartPoint StartPoint(TSG.Point startPoint);
-}
-
-/// <summary>
-/// Represents an interface for specifying the end point of a Tekla Structures Beam with the builder pattern.
-/// </summary>
-public interface IBeamWithStartPoint
-{
-    /// <summary>
-    /// Specifies the ending point of the beam.
-    /// </summary>
-    /// <param name="endPoint">The ending point of the beam.</param>
-    /// <returns>An interface for further configuration.</returns>
-    public IBeamWithStartAndEndPoints EndPoint(TSG.Point endPoint);
-}
-
-/// <summary>
-/// Represents an interface for specifying the profile of a Tekla Structures Beam with the builder pattern.
-/// </summary>
-public interface IBeamWithStartAndEndPoints
-{
-    /// <summary>
-    /// Specifies the profile of the beam.
-    /// </summary>
-    /// <param name="profile">The profile of the beam.</param>
-    /// <returns>An interface for further configuration.</returns>
-    public IBeamWithProfile Profile(string profile);
-}
-
-/// <summary>
-/// Represents an interface for completing the configuration of a Tekla Structures Beam with the builder pattern.
-/// </summary>
-public interface IBeamWithProfile
-{
-    /// <summary>
-    /// Specifies the material of the beam.
-    /// </summary>
-    /// <param name="material">The material of the beam.</param>
-    /// <returns>An interface for further configuration.</returns>
-    public ICompletedBeam Material(string material);
-}
-
-/// <summary>
 /// Represents an interface for finalizing the construction of a Beam with the builder pattern.
 /// </summary>
 public interface ICompletedBeam
@@ -96,6 +36,13 @@ public interface ICompletedBeam
     public ICompletedBeam PartNumbering(string partPrefix, int partStartNumber);
 
     /// <summary>
+    /// Specifies the position information for the beam.
+    /// </summary>
+    /// <param name="position">The position object containing information about the beam's location.</param>
+    /// <returns>An interface for further configuration or finalizing the construction.</returns>
+    public ICompletedBeam Position(TSM.Position position);
+
+    /// <summary>
     /// Specifies the position of the beam in the plane.
     /// </summary>
     /// <param name="planeEnum">The plane position enum.</param>
@@ -124,8 +71,50 @@ public interface ICompletedBeam
     /// Specifies the cast unit type of the beam.
     /// </summary>
     /// <param name="castUnitTypeEnum">The cast unit type enum.</param>
-    /// <returns>The finalized Tekla Structures Beam object.</returns>
+    /// <returns>An interface for further configuration or finalizing the construction.</returns>
     public ICompletedBeam CastUnitType(TSM.Part.CastUnitTypeEnum castUnitTypeEnum);
+
+    /// <summary>
+    /// Specifies the finish of the beam.
+    /// </summary>
+    /// <param name="finish">The finish of the beam.</param>
+    /// <returns>An interface for further configuration or finalizing the construction.</returns>
+    public ICompletedBeam Finish(string finish);
+
+    /// <summary>
+    /// Specifies the identifier for the beam.
+    /// </summary>
+    /// <param name="identifier">The identifier for the beam.</param>
+    /// <returns>An interface for further configuration or finalizing the construction.</returns>
+    public ICompletedBeam Identifier(TS.Identifier identifier);
+
+    /// <summary>
+    /// Specifies the deforming data for the beam.
+    /// </summary>
+    /// <param name="deformingData">The deforming data for the beam.</param>
+    /// <returns>An interface for further configuration or finalizing the construction.</returns>
+    public ICompletedBeam DeformingData(TSM.DeformingData deformingData);
+
+    /// <summary>
+    /// Specifies the pour phase for the beam.
+    /// </summary>
+    /// <param name="pourPhase">The pour phase for the beam.</param>
+    /// <returns>An interface for further configuration or finalizing the construction.</returns>
+    public ICompletedBeam PourPhase(int pourPhase);
+
+    /// <summary>
+    /// Specifies the start point offset for the beam.
+    /// </summary>
+    /// <param name="startPointOffset">The offset for the start point of the beam.</param>
+    /// <returns>An interface for further configuration or finalizing the construction.</returns>
+    public ICompletedBeam StartPointOffset(TSM.Offset startPointOffset);
+
+    /// <summary>
+    /// Specifies the end point offset for the beam.
+    /// </summary>
+    /// <param name="endPointOffset">The offset for the end point of the beam.</param>
+    /// <returns>An interface for further configuration or finalizing the construction.</returns>
+    public ICompletedBeam EndPointOffset(TSM.Offset endPointOffset);
 
     /// <summary>
     /// Finalizes the construction and returns the Beam object.

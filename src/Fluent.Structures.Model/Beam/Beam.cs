@@ -15,6 +15,7 @@ public sealed class Beam
     /// <summary>
     /// The underlying Tekla Structures Model beam object.
     /// </summary>
+    // ReSharper disable once MemberCanBePrivate.Global
     public TSM.Beam TeklaBeam { get; }
 
     /// <summary>
@@ -138,7 +139,12 @@ public sealed class Beam
             return this;
         }
 
-        /// <inheritdoc />
+        public ICompletedBeam Position(TSM.Position position)
+        {
+            _beam.Position = position;
+            return this;
+        }
+
         public ICompletedBeam PlanePosition(TSM.Position.PlaneEnum planeEnum, double planeOffset)
         {
             _beam.PlanePosition = planeEnum;
@@ -166,11 +172,46 @@ public sealed class Beam
         /// <inheritdoc />
         public ICompletedBeam CastUnitType(TSM.Part.CastUnitTypeEnum castUnitTypeEnum)
         {
-            _beam.CastUnitTypeEnum = castUnitTypeEnum;
+            _beam.CastUnitType = castUnitTypeEnum;
             return this;
         }
 
-        /// <inheritdoc />
+        public ICompletedBeam Finish(string finish)
+        {
+            _beam.Finish = finish;
+            return this;
+        }
+
+        public ICompletedBeam Identifier(TS.Identifier identifier)
+        {
+            _beam.Identifier = identifier;
+            return this;
+        }
+
+        public ICompletedBeam DeformingData(TSM.DeformingData deformingData)
+        {
+            _beam.DeformingData = deformingData;
+            return this;
+        }
+
+        public ICompletedBeam PourPhase(int pourPhase)
+        {
+            _beam.PourPhase = pourPhase;
+            return this;
+        }
+
+        public ICompletedBeam StartPointOffset(TSM.Offset startPointOffset)
+        {
+            _beam.StartPointOffset = startPointOffset;
+            return this;
+        }
+
+        public ICompletedBeam EndPointOffset(TSM.Offset endPointOffset)
+        {
+            _beam.EndPointOffset = endPointOffset;
+            return this;
+        }
+
         public Beam Build()
             => _beam;
 
@@ -332,6 +373,18 @@ public sealed class Beam
     }
 
     /// <summary>
+    /// Gets or sets the position information for the Tekla Structures Beam.
+    /// </summary>
+    /// <remarks>
+    /// The position of the beam in the model.
+    /// </remarks>
+    public TSM.Position Position
+    {
+        get => TeklaBeam.Position;
+        private set => TeklaBeam.Position = value;
+    }
+
+    /// <summary>
     /// Gets or sets the depth position of the Tekla Structures Beam.
     /// </summary>
     /// <remarks>
@@ -409,10 +462,82 @@ public sealed class Beam
     /// <remarks>
     /// The cast unit type is an enum representing the type of casting unit for the beam.
     /// </remarks>
-    public TSM.Part.CastUnitTypeEnum CastUnitTypeEnum
+    public TSM.Part.CastUnitTypeEnum CastUnitType
     {
         get => TeklaBeam.CastUnitType;
         private set => TeklaBeam.CastUnitType = value;
+    }
+
+    /// <summary>
+    /// Gets or sets the finish property for the Tekla Structures Beam.
+    /// </summary>
+    /// <remarks>
+    /// The finish property represents the surface quality or treatment applied to the beam.
+    /// </remarks>
+    public string Finish
+    {
+        get => TeklaBeam.Finish;
+        private set => TeklaBeam.Finish = value;
+    }
+
+    /// <summary>
+    /// Gets or sets the identifier for the Tekla Structures Beam.
+    /// </summary>
+    /// <remarks>
+    /// The identifier uniquely identifies the beam within the model.
+    /// </remarks>
+    public TS.Identifier Identifier
+    {
+        get => TeklaBeam.Identifier;
+        private set => TeklaBeam.Identifier = value;
+    }
+
+    /// <summary>
+    /// Gets or sets the deforming data for the Tekla Structures Beam.
+    /// </summary>
+    /// <remarks>
+    /// Deforming data includes information about how the beam may deform under certain conditions.
+    /// </remarks>
+    public TSM.DeformingData DeformingData
+    {
+        get => TeklaBeam.DeformingData;
+        private set => TeklaBeam.DeformingData = value;
+    }
+
+    /// <summary>
+    /// Gets or sets the pour phase for the Tekla Structures Beam.
+    /// </summary>
+    /// <remarks>
+    /// The pour phase indicates the construction phase during which the beam is poured or installed.
+    /// </remarks>
+    public int PourPhase
+    {
+        get => TeklaBeam.PourPhase;
+        private set => TeklaBeam.PourPhase = value;
+    }
+
+    /// <summary>
+    /// Gets or sets the start point offset for the Tekla Structures Beam.
+    /// </summary>
+    /// <remarks>
+    /// The offset from the beam's start point in the model.
+    /// </remarks>
+    public TSM.Offset StartPointOffset
+    {
+        get => TeklaBeam.StartPointOffset;
+        private set => TeklaBeam.StartPointOffset = value;
+    }
+
+    /// <summary>
+    /// Gets or sets the end point offset for the Tekla Structures Beam.
+    /// </summary>
+    /// <remarks>
+    /// The offset from the beam's end point in the model.
+    /// </remarks>
+    public TSM.Offset EndPointOffset
+    {
+        get => TeklaBeam.EndPointOffset;
+        private set => TeklaBeam.EndPointOffset = value;
     }
 
     #endregion
