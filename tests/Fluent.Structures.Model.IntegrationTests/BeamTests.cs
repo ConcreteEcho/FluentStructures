@@ -13,7 +13,6 @@ public class Tests
     private const string TsModelsPath = @"C:\TeklaStructuresModels\";
     private const string TsModelName = "Model-integration-tests";
     private readonly string _tsModelPath = Path.Combine(TsModelsPath, TsModelName);
-    private const string TsLicenseServer = "27001@127.0.0.1";
 
     private const string EnvironmentIni = $@"C:\TeklaStructures\{TsVersion
     }\Environments\default\env_Default_environment.ini";
@@ -26,7 +25,6 @@ public class Tests
     [SetUp]
     public void Setup()
     {
-        ConfigureHeadlessIni();
         AppDomain.CurrentDomain.AssemblyResolve += (_, a) => TeklaBinResolve(a);
         _ts = new TSS.TeklaStructuresService(
             new DirectoryInfo(TsBinDirectory),
@@ -47,7 +45,10 @@ public class Tests
 
     [TearDown]
     public void Teardown()
-        => _ts.Dispose();
+    {
+        _ts.Dispose();
+        Directory.Delete(_tsModelPath);
+    }
 
     private static Assembly? TeklaBinResolve(ResolveEventArgs args)
     {
@@ -64,33 +65,7 @@ public class Tests
         return null;
     }
 
-    private void ConfigureHeadlessIni()
-    {
-        var testIniFilePath = Path.Combine(_tsModelPath, "TeklaStructures.ini");
-        Directory.CreateDirectory(_tsModelPath);
-
-        // Always make a copy of a main the ini file so we dont break TS installation.
-        File.Copy(Path.Combine(TsBinDirectory, "TeklaStructures.ini"), testIniFilePath, true);
-
-        File.AppendAllText(
-            testIniFilePath,
-            $"\r\nset XS_LICENSE_SERVER_HOST={TsLicenseServer}\r\n"
-        );
-        File.AppendAllText(testIniFilePath, $"set XS_DEFAULT_LICENSE=Full\r\n");
-        File.AppendAllText(testIniFilePath, $"set XS_PLUGIN_DEVELOPER_MODE=false\r\n");
-        Environment.SetEnvironmentVariable("TS_OVERRIDE_INI_FILE", testIniFilePath);
-
-        /*var envVar = Environment.GetEnvironmentVariable("TS_OVERRIDE_INI_FILE");
-        if (envVar == null || !envVar.Equals(testIniFilePath))
-        {
-            throw new ArgumentException(
-                $"Please set TS_OVERRIDE_INI_FILE, before exec the program: set TS_OVERRIDE_INI_FILE={
-                    testIniFilePath}"
-            );
-        }*/
-    }
-
     [Test]
-    public void Test1()
+    public void Test()
         => _ts.Ping().Should().Be("Pong");
 }
