@@ -32,9 +32,19 @@ public class Tests
             new FileInfo(EnvironmentIni),
             new FileInfo(RoleIni)
         );
-        _ts.Initialize(new DirectoryInfo(TsModelsPath));
-        if (CreateModel() is not true)
-            Assert.Fail();
+
+        var path = Path.Combine(TsModelsPath, TsModelName);
+        Directory.CreateDirectory(path);
+        _ts.Initialize(new DirectoryInfo(path));
+
+        CreateModel().Should().BeTrue();
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+        _ts.Dispose();
+        // Directory.Delete(_tsModelPath, true);
     }
 
     private bool CreateModel()
@@ -42,13 +52,6 @@ public class Tests
             TsModelName,
             TsModelsPath
         );
-
-    [TearDown]
-    public void Teardown()
-    {
-        _ts.Dispose();
-        Directory.Delete(_tsModelPath);
-    }
 
     private static Assembly? TeklaBinResolve(ResolveEventArgs args)
     {
@@ -67,5 +70,13 @@ public class Tests
 
     [Test]
     public void Test()
-        => _ts.Ping().Should().Be("Pong");
+    {
+        _ts.Ping().Should().Be("Pong", "Connection should be established with Tekla");
+    }
+    
+    [Test]
+    public void Test2()
+    {
+        _ts.Ping().Should().Be("Pong", "Connection should be established with Tekla");
+    }
 }
